@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lockspacker</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            margin: 50px auto;
+            width: 320px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        input {
+            margin: 10px;
+        }
+        img {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkgreen;
+        }
+        .footer {
+            margin-top: 10px;
+            font-size: 12px;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🔐 Lockspacker</h2>
+    <p>Secure Your Important Documents</p>
+
+    <p>Upload Aadhar:</p>
+    <input type="file" id="aadhar">
+
+    <p>Upload PAN:</p>
+    <input type="file" id="pan">
+
+    <p>Upload Driving License:</p>
+    <input type="file" id="dl">
+
+    <br><br>
+    <button onclick="saveDocs()">Save Documents</button>
+
+    <h3>Stored Documents</h3>
+
+    <img id="showAadhar">
+    <img id="showPan">
+    <img id="showDL">
+
+    <div class="footer">
+        Developed by Shiva
+    </div>
+</div>
+
+<script>
+function saveDocs() {
+    let aadhar = document.getElementById("aadhar").files[0];
+    let pan = document.getElementById("pan").files[0];
+    let dl = document.getElementById("dl").files[0];
+
+    if (aadhar) {
+        let reader = new FileReader();
+        reader.onload = function() {
+            localStorage.setItem("aadhar", reader.result);
+            document.getElementById("showAadhar").src = reader.result;
+        }
+        reader.readAsDataURL(aadhar);
+    }
+
+    if (pan) {
+        let reader = new FileReader();
+        reader.onload = function() {
+            localStorage.setItem("pan", reader.result);
+            document.getElementById("showPan").src = reader.result;
+        }
+        reader.readAsDataURL(pan);
+    }
+
+    if (dl) {
+        let reader = new FileReader();
+        reader.onload = function() {
+            localStorage.setItem("dl", reader.result);
+            document.getElementById("showDL").src = reader.result;
+        }
+        reader.readAsDataURL(dl);
+    }
+
+    alert("Documents Saved Successfully!");
+}
+
+// Load saved documents
+window.onload = function() {
+    document.getElementById("showAadhar").src = localStorage.getItem("aadhar");
+    document.getElementById("showPan").src = localStorage.getItem("pan");
+    document.getElementById("showDL").src = localStorage.getItem("dl");
+}
+</script>
+
+</body>
+</html>
